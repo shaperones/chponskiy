@@ -1,0 +1,3 @@
+[submodule "chponskiy/static/bootstrap"]
+	path = chponskiy/static/bootstrap
+	url = https://github.com/twbs/bootstrap
