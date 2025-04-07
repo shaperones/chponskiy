@@ -3,13 +3,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Chponskiy!{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/main.js' %}" defer></script>
 </head>
 <body>
     <script>let _ = 0; //empty script to prevent the FUC (Flash of Unstyled Content)</script>
-    {% block content %}{% endblock %}
+    <div id="mount">
+        <div id="app">
+            {% block content %}{% endblock %}
+        </div>
+        <div id="overlays"></div>
+    </div>
 </body>
 </html>
