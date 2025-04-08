@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<style>
+html, body {
+    height: 100%;
+}
+</style>
+{% endblock %}
+
+{% block body_class %}d-flex align-items-center py-4{% endblock %}
+
+{% block content %}
+    <main class="form-signin w-100 m-auto">
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <h1 class="h3 mb-5 fw-normal">Sign In</h1>
+        {% if form.errors %}
+            <div class="callout-danger">
+                Invalid credentials. Please make sure you typed them in correctly.
+            </div>
+        {% endif %}
+        {% for field in form %}
+            <div class="form-floating">
+                {% render_field field class+="form-control is-invalid" placeholder=field.placeholder %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </div>
+        {% endfor %}
+
+        <button class="btn btn-secondary w-100"><img class="mb-1" alt=">" src="{% static 'img/arrow-right.svg' %}"></button>
+    </form>
+    </main>
+{% endblock %}

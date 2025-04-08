@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head_extra %}
+<style>
+html, body {
+    height: 100%;
+}
+</style>
+{% endblock %}
+
+{% block body_class %}d-flex align-items-center py-4{% endblock %}
+
+{% block content %}
+    <main class="form-signin w-100 m-auto">
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <h1 class="h3 mb-5 fw-normal">Sign Up</h1>
+        {% for field in form %}
+            <div class="form-floating">
+
+                {% if form.is_bound %}
+                    {% if field.errors %}
+                        {# Invalid #}
+                        {% render_field field class+="form-control is-invalid" placeholder=field.placeholder %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {# Valid #}
+                        {% render_field field class+="form-control" placeholder=field.placeholder %}
+
+                    {% endif %}
+                {% else %}
+                    {% render_field field class+="form-control" placeholder=field.placeholder %}
+                {% endif %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </div>
+        {% endfor %}
+
+        <button class="btn btn-secondary w-100"><img class="mb-1" alt=">" src="{% static 'img/arrow-right.svg' %}"></button>
+    </form>
+    </main>
+{% endblock %}

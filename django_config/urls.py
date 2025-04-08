@@ -17,6 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from chponskiy.views import index, auth, register, profile
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index, name='index'),
+    path('login', auth, name='login'),
+    path('register', register, name='register'),
+    path('profile', profile, name='profile'),
 ]
