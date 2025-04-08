@@ -24,7 +24,7 @@ html, body {
         {% endif %}
         {% for field in form %}
             <div class="form-floating">
-                {% render_field field class+="form-control is-invalid" placeholder=field.placeholder %}
+                {% render_field field class+="form-control" placeholder=field.placeholder %}
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             </div>
         {% endfor %}
