@@ -1,0 +1,49 @@
+// --- other colors overrides ---
+$body-bg-dark: #000000;
+$border-color-dark: #888888;
+
+@import "chponskiy/static/bootstrap/scss/functions";
+@import "chponskiy/static/bootstrap/scss/variables";
+
+// --- main colors overrides ---
+$primary: #EEEEEE;
+$secondary: #DDDDDD;
+
+// merge with existing $theme-colors map
+$theme-colors: map-merge($theme-colors, (
+    "primary": $primary,
+    "secondary": $secondary
+));
+
+// set changes
+@import "chponskiy/static/bootstrap/scss/bootstrap";
+
+// --- the rest of styling ---
+.btn-hover-outline-primary:hover {
+    border-color: $primary !important;
+}
+
+// --- forms ---
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
+
+    input {
+        margin-top: 30px;
+    }
+
+    button {
+        margin-top: 30px;
+    }
+}
+
+#id_password1 {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#id_password2 {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

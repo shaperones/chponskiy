@@ -1,20 +1,28 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Chponskiy!{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="{% static 'js/main.js' %}" defer></script>
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'css/style.scss' %}">
+    {% endcompress %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block head_extra %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <script>let _ = 0; //empty script to prevent the FUC (Flash of Unstyled Content)</script>
+    {% block content %}
     <div id="mount">
         <div id="app">
-            {% block content %}{% endblock %}
+
         </div>
         <div id="overlays"></div>
     </div>
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
 </html>
