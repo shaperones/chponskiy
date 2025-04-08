@@ -50,5 +50,7 @@ def register(request):
 
     return render(request, 'login.html', {'form': form})
 
+
+@login_required(login_url="login")
 def profile(request):
     return render(request, 'profile.html')
