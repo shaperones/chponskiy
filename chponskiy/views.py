@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
+
 
 def auth(request):
     if request.method == "POST":
@@ -24,6 +26,7 @@ def auth(request):
                     field.placeholder = "*****"
 
     return render(request, 'login.html', {'form': form})
+
 
 def register(request):
     if request.method == 'POST':
