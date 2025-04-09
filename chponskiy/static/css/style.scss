@@ -1,6 +1,7 @@
 // --- other colors overrides ---
 $body-bg-dark: #000000;
 $border-color-dark: #888888;
+$dark-border-subtle-dark: #444444;
 
 @import "chponskiy/static/bootstrap/scss/functions";
 @import "chponskiy/static/bootstrap/scss/variables";
@@ -19,6 +20,10 @@ $theme-colors: map-merge($theme-colors, (
 @import "chponskiy/static/bootstrap/scss/bootstrap";
 
 // --- the rest of styling ---
+html, body, #mount, #app, #layout {
+    height: 100%;
+}
+
 .btn-hover-outline-primary:hover {
     border-color: $primary !important;
 }
@@ -90,7 +95,9 @@ $theme-colors: map-merge($theme-colors, (
 .form-index {
     max-width: 500px !important;
     padding: 1rem;
-    color: black
+    //color: black;
+    background: #22222288;
+    backdrop-filter: blur(2px) brightness(200%);
 }
 
 // --- background canvas ---

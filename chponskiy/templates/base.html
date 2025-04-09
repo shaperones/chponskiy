@@ -1,28 +1,83 @@
 {% load static %}
 {% load compress %}
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Chponskiy!{% endblock %}</title>
+    <title>{% block title %}Chponskiy!{% endblock title %}</title>
     {% compress css %}
     <link rel="stylesheet" type="text/x-scss" href="{% static 'css/style.scss' %}">
     {% endcompress %}
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
-    {% block head_extra %}{% endblock %}
+    {% block head_extra %}{% endblock head_extra %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.6.6/pixi.min.js"
+            integrity="sha512-9Che/pADxtzmgRM/Lt7g+wgmgVPNu4qLCOjH+owFqCSpd9HHCi1fMYp+XtfE8nOdRQWUsD0TUNQUc5Z1SwaLyw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script>
+    // load shaders func
+    let index_frag_source = "";
+    let index_vert_source = "";
+
+    const fetchShaders = async () => {
+        await fetch('{% static 'glsl/index.vert' %}')
+            .then(response => response.text())
+            .then((data) => {
+                index_vert_source = data
+            });
+        await fetch('{% static 'glsl/index.frag' %}')
+            .then(response => response.text())
+            .then((data) => {
+                index_frag_source = data
+            });
+    }
+    </script>
     <script type="module" src="{% static 'js/main.js' %}"></script>
 </head>
-<body class="{% block body_class %}{% endblock %}">
-    <script>let _ = 0; //empty script to prevent the FUC (Flash of Unstyled Content)</script>
-    {% block content %}
+<body class="{% block body_classes %}{% endblock %}">
+    <script>const _ = 0; //empty script to prevent the FUC (Flash of Unstyled Content)</script>
     <div id="mount">
         <div id="app">
-
+            {% block header %}
+            <nav id="header">
+                <div class="container fixed-top">
+                    <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
+                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="/">
+                            <img alt="🈺" src="{% static 'img/favicon_flat.svg' %}">
+                            <span class="fs-4" style="font-family: Arial, sans-serif; font-style: italic">Chponskiy!</span>
+                        </a>
+                        {% if user.is_authenticated %}
+                        <a class="link-body-emphasis text-decoration-none" href="{% url 'profile' %}">{{ user.username }}</a>
+                        {% else %}
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="btn btn-hover-outline-primary me-2"
+                                   type="button"
+                                   href="{% url 'login' %}"
+                                   id="a-login"
+                                >Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary me-2"
+                                   type="button"
+                                   href="{% url 'register' %}"
+                                   id="a-register"
+                                >Sign Up</a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </header>
+                </div>
+            </nav>
+            {% endblock header %}
+            <main id="layout" class="{% block layout_classes %}{% endblock %}">
+            {% block layout %}{% endblock layout %}
+            </main>
         </div>
         <div id="overlays"></div>
     </div>
-    {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
 </html>

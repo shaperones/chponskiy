@@ -1,5 +1,21 @@
 'use strict'
 
+function fakeHref(href) {
+    window.fetch(href)
+        .then(response => response.text())
+        .then((data) => {
+            const parser = new DOMParser();
+            const newDocument = parser.parseFromString(data, "text/html");
+            const title = newDocument.getElementsByTagName('title')[0].text;
+            window.history.pushState({
+                'html': data,
+                'pageTitle': title,
+            }, "", href);
+            document.getElementById('mount').innerHTML = newDocument.getElementById('mount').innerHTML;
+        });
+}
+
+
 let app = undefined;
 let background = undefined;
 async function loadCanvas() {
@@ -39,10 +55,23 @@ async function loadCanvas() {
 window.onload = (_) => {
     if (typeof PIXI !== 'undefined') {
         fetchShaders().then(() => {
-            console.log("fetched");
             loadCanvas().then(_ => console.log("canvased"));
         });
     }
+
+    const fakifyById = (elemId) => {
+        let elem = document.getElementById(elemId);
+        if (elem !== null) {
+            elem.addEventListener('click', (e) => {
+                e.preventDefault();
+                fakeHref(elem.href);
+            });
+        }
+    }
+
+    // turned out that this looks not as good
+    // fakifyById('a-login');
+    // fakifyById('a-register');
 };
 
 let timeoutId = 0;

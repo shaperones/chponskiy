@@ -1,41 +1,10 @@
-{% extends 'base_noform.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
 
-{% block head_extra %}
-<style>
-html, body, #mount, #app, #layout {
-    height: 100%;
-}
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.6.6/pixi.min.js"
-        integrity="sha512-9Che/pADxtzmgRM/Lt7g+wgmgVPNu4qLCOjH+owFqCSpd9HHCi1fMYp+XtfE8nOdRQWUsD0TUNQUc5Z1SwaLyw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-<script>
-// load shaders
-let index_frag_source = "";
-let index_vert_source = "";
-
-const fetchShaders = async () => {
-    await fetch('{% static 'glsl/index.vert' %}')
-        .then(response => response.text())
-        .then((data) => {
-            index_vert_source = data
-        });
-    await fetch('{% static 'glsl/index.frag' %}')
-        .then(response => response.text())
-        .then((data) => {
-            index_frag_source = data
-        });
-}
-
-</script>
-{% endblock %}
-
 {% block layout %}
 <div class="h-100 d-flex align-items-center py-4">
-<div class="form-index w-100 m-auto rounded bg-white">
+<div class="form-index w-100 m-auto border border-dark-subtle rounded">
     Hello!
 </div>
 </div>
