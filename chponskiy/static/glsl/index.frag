@@ -22,16 +22,31 @@ vec3 hsv2rgb(vec3 c)
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
+float dots(vec2 fragCoord, float space, float gridThickness, vec2 offset)
+{
+    vec2 p  = fragCoord - vec2(.5) - offset;
+    vec2 size = vec2(gridThickness);
+
+    vec2 a1 = mod(p - size, space);
+    vec2 a2 = mod(p + size, space);
+    vec2 a = a1 - a2;
+
+    float g = min(a.x, a.y);
+    return clamp(1. - g, 0., 1.0);
+}
+
 void main(void)
 {
-    vec2 uvs = vTextureCoord.xy;
+    vec2 uv = vTextureCoord.xy;
+    vec3 col = vec3(.0);
 
     vec4 fg = texture2D(uTexture, vTextureCoord);
 
+    // fg.r = uvs.y + sin(uTime);
+    col += 1.0 - clamp(dots(gl_FragCoord.xy, 300.0, 2.0, vec2(uTime * 10.0, uTime * 15.0)), 0.7, 1.0);
+    col += 1.0 - clamp(dots(gl_FragCoord.xy, 250.0, 1.5, vec2(uTime * 8.0, uTime * 12.0)), 0.7, 1.0);
+    col += 1.0 - clamp(dots(gl_FragCoord.xy, 200.0, 1.0, vec2(uTime * 6.0, uTime * 9.0)), 0.7, 1.0);
 
-    fg.r = uvs.y + sin(uTime);
-
-
-    gl_FragColor = vec4(hsv2rgb(vec3(uTime / 10.0, 0.5, 1)), 1);
+    gl_FragColor = vec4(col, 1.0);
 
 }
