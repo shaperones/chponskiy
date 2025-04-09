@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.staticfiles.views import serve as static_serve
+from functools import partial
 
 from chponskiy.views import index, auth, register, profile
 
@@ -25,4 +27,5 @@ urlpatterns = [
     path('login', auth, name='login'),
     path('register', register, name='register'),
     path('profile', profile, name='profile'),
+    path('favicon.ico', partial(static_serve, path='img/favicon.ico'), name='favicon'),
 ]
