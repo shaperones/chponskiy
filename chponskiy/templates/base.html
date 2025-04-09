@@ -1,7 +1,6 @@
 {% load static %}
 {% load compress %}
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8"/>
@@ -11,8 +10,8 @@
     <link rel="stylesheet" type="text/x-scss" href="{% static 'css/style.scss' %}">
     {% endcompress %}
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
-    <script src="{% static 'js/main.js' %}"></script>
     {% block head_extra %}{% endblock %}
+    <script type="module" src="{% static 'js/main.js' %}"></script>
 </head>
 <body class="{% block body_class %}{% endblock %}">
     <script>let _ = 0; //empty script to prevent the FUC (Flash of Unstyled Content)</script>

@@ -86,3 +86,16 @@ $theme-colors: map-merge($theme-colors, (
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.form-index {
+    max-width: 500px !important;
+    padding: 1rem;
+    color: black
+}
+
+// --- background canvas ---
+canvas {
+    position: fixed;
+    left: 0; top: 0;
+    z-index: -1;
+}
