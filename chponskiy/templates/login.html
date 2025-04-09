@@ -18,7 +18,7 @@ html, body {
         {% csrf_token %}
         <h1 class="h3 mb-5 fw-normal">Sign In</h1>
         {% if form.errors %}
-            <div class="callout-danger">
+            <div class="callout callout-danger">
                 Invalid credentials. Please make sure you typed them in correctly.
             </div>
         {% endif %}
