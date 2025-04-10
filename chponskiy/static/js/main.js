@@ -77,6 +77,7 @@ async function loadCanvas() {
 
 let gameDifficulty = 'practice';
 let gameScore = 0;
+let gameScoreThousands = 0;
 let fails = 0;
 let previousQuestionTime = 0;
 let currentQuestionAnswer = "";
@@ -124,6 +125,11 @@ function answerButtonPress(me) {
         const curTime = Date.now();
         const questionScore = 100 - 75 * fails - (curTime - previousQuestionTime)/500;
         gameScore += Math.max(0, questionScore);
+        const newThousand = Math.floor(gameScore / 1000);
+        if (newThousand > gameScoreThousands) {
+            audio1Up.play().then();
+            gameScoreThousands = newThousand;
+        }
         nextQuestion();
     }
     else {
