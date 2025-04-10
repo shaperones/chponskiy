@@ -137,6 +137,10 @@ function answerButtonPress(me) {
 }
 
 function gameEnd() {
+    if (gameDifficulty === 'practice') {
+        // continue in endless mode
+        return;
+    }
     const questionElem = document.getElementById('question');
     const answersElem = document.getElementById('answers');
     audioClear.play().then();

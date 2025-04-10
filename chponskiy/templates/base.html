@@ -53,7 +53,7 @@
     const audioFail13 = new Audio("{% static 'snd/fail13.mp3' %}");   audioFail13.volume = 0.5;
     const audioSuccess1 = new Audio("{% static 'snd/success1.mp3' %}");   audioSuccess1.volume = 0.5;
 
-    const mus1 = new Audio("{% static 'snd/mus1.ogg' %}"); mus1.volume = 0.5;
+    const mus1 = new Audio("{% static 'snd/mus1.ogg' %}"); mus1.volume = 0.5; mus1.loop = true;
     const mus2 = new Audio("{% static 'snd/mus2.ogg' %}"); mus2.volume = 0.5;
     const mus3 = new Audio("{% static 'snd/mus3.ogg' %}"); mus3.volume = 0.7;
     const mus4 = new Audio("{% static 'snd/mus4.ogg' %}"); mus4.volume = 0.7;
