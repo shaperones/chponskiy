@@ -17,6 +17,12 @@ difToAudio.set('easy', mus2);
 difToAudio.set('medium', mus3);
 difToAudio.set('nightmare', mus4);
 
+const difToLength = new Map();
+difToLength.set('practice', 2*60*1000 + 21*1000 + 270);
+difToLength.set('easy', 3*60*1000 + 17*1000 + 512);
+difToLength.set('medium', 5*60*1000 + 27*1000 + 344);
+difToLength.set('nightmare', 5*60*1000 + 57*1000 + 487);
+
 async function fakeHref(href) {
     await window.fetch(href)
         .then(response => response.text())
@@ -70,6 +76,9 @@ async function loadCanvas() {
 }
 
 let gameDifficulty = 'practice';
+let gameScore = 0;
+let fails = 0;
+let previousQuestionTime = 0;
 let currentQuestionAnswer = "";
 function nextQuestion() {
     const questionElem = document.getElementById('question');
@@ -80,6 +89,8 @@ function nextQuestion() {
     fetch(`api/v1/question/${gameDifficulty}`)
         .then(response => response.json())
         .then((data) => {
+            previousQuestionTime = Date.now();
+            fails = 0;
             questionElem.textContent = data['question_text'];
             currentQuestionAnswer = data['choices'][data['correct_idx']];
             if (answersElem.childElementCount !== data['choices'].length) {
@@ -110,15 +121,29 @@ const audioFails = [audioFail1, audioFail2, audioFail3, audioFail4, audioFail5, 
 function answerButtonPress(me) {
     if (me.target.textContent === currentQuestionAnswer) {
         audioSuccess1.play().then();
+        const curTime = Date.now();
+        const questionScore = 100 - 75 * fails - (curTime - previousQuestionTime)/500;
+        gameScore += Math.max(0, questionScore);
         nextQuestion();
     }
     else {
         const audioFail = audioFails[Math.floor(Math.random() * audioFails.length)];
         audioFail.play().then();
+        fails++;
         me.target.setAttribute('disabled', '');
         me.target.classList.remove('btn-outline-dark');
         me.target.classList.add('btn-danger');
     }
+}
+
+function gameEnd() {
+    const questionElem = document.getElementById('question');
+    const answersElem = document.getElementById('answers');
+    audioClear.play().then();
+    gameScore = Math.floor(gameScore)
+    questionElem.textContent = `Score: ${gameScore}`;
+    answersElem.textContent = 'Press F5 to try again!';
+    // score
 }
 
 let gameStartTimeout = 0;
@@ -149,13 +174,15 @@ window.onload = (_) => {
             fakeHref(`api/v1/game/${gameDifficulty}`).then(() => {
                 document.getElementsByTagName('canvas')[0].remove();
                 document.documentElement.setAttribute('data-bs-theme', 'light');
-                document.getElementsByTagName('body')[0].style.backgroundColor = difToColor.get(elem.difficulty);
+                document.getElementsByTagName('body')[0].style.backgroundColor = difToColor.get(gameDifficulty);
                 document.getElementById('overlays').innerHTML = "";
 
-                const bgm = difToAudio.get(elem.difficulty);
+                const bgm = difToAudio.get(gameDifficulty);
                 bgm.play();
 
                 nextQuestion();
+
+                window.setTimeout(gameEnd, difToLength.get(gameDifficulty));
             });
 
         }, 2000);
@@ -188,3 +215,15 @@ window.onresize = (_) => {
         timeoutId = window.setTimeout(refreshStage, 100);
     }
 };
+
+// debug keys
+window.onkeydown = (ke) => {
+    if (ke.key === "T") {
+        mus1.pause();
+        mus2.pause();
+        mus3.pause();
+        mus4.pause();
+        document.querySelectorAll('audio').forEach(el => el.pause());
+        gameEnd();
+    }
+}
