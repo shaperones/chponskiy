@@ -13,6 +13,9 @@ difToColor.set('nightmare', my_red);
 
 const difToAudio = new Map();
 difToAudio.set('practice', mus1);
+difToAudio.set('easy', mus2);
+difToAudio.set('medium', mus3);
+difToAudio.set('nightmare', mus4);
 
 async function fakeHref(href) {
     await window.fetch(href)
