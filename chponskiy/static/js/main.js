@@ -59,19 +59,29 @@ window.onload = (_) => {
         });
     }
 
-    const fakifyById = (elemId) => {
-        let elem = document.getElementById(elemId);
-        if (elem !== null) {
-            elem.addEventListener('click', (e) => {
-                e.preventDefault();
-                fakeHref(elem.href);
-            });
-        }
+    const enterGameButtonAnim = (mouseEvent) => {
+        audioEnter.play();
+        const elem = mouseEvent.target;
+        elem.focus();   // force highlighted state
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        circle.style.left = mouseEvent.x.toString() + 'px';
+        circle.style.top = mouseEvent.y.toString() + 'px';
+        const btnStyle = window.getComputedStyle(elem);
+        circle.style.backgroundColor = btnStyle.borderColor;
+        document.getElementById('overlays').appendChild(circle);
     }
 
-    // turned out that this looks not as good
-    // fakifyById('a-login');
-    // fakifyById('a-register');
+    let btn;
+    btn = document.getElementById('btn-practice');
+    if (btn !== null) btn.onclick = enterGameButtonAnim;
+    btn = document.getElementById('btn-easy');
+    if (btn !== null) btn.onclick = enterGameButtonAnim;
+    btn = document.getElementById('btn-medium');
+    if (btn !== null) btn.onclick = enterGameButtonAnim;
+    btn = document.getElementById('btn-nightmare');
+    if (btn !== null) btn.onclick = enterGameButtonAnim;
+
 };
 
 let timeoutId = 0;
