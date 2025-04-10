@@ -3,6 +3,7 @@ $my-red: #ff808d;
 $my-yellow: #ffdf80;
 $my-green: #80ffc3;
 $my-blue: #80eaff;
+$my-dark: #222222;
 
 // --- other colors overrides ---
 $body-bg-dark: #000000;
@@ -46,7 +47,8 @@ $btn-color: (
         "btn-outline-info": $my-blue,
         "btn-outline-success": $my-green,
         "btn-outline-warning": $my-yellow,
-        "btn-outline-danger": $my-red
+        "btn-outline-danger": $my-red,
+        "btn-outline-dark": $my-dark
 );
 
 @each $btn, $col in $btn-color {
@@ -66,6 +68,11 @@ $btn-color: (
         --bs-btn-disabled-border-color: #{$col};
         --bs-gradient: none;
     }
+}
+
+.btn-outline-dark {
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
 }
 
 // --- callouts (taken examples from bootstrap docs) ---
@@ -138,6 +145,12 @@ $btn-color: (
     //color: black;
     background: #22222288;
     backdrop-filter: blur(2px) brightness(200%);
+}
+
+.form-game {
+    max-width: 500px !important;
+    padding: 1rem;
+    transition: height 0.5s;
 }
 
 .btn-outline-info, .btn-outline-success, .btn-outline-warning, .btn-outline-danger {

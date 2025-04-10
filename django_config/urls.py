@@ -15,10 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.staticfiles.views import serve as static_serve
 from functools import partial
 
+from django_config.settings import DEBUG
 from chponskiy.views import index, auth, register, profile
 
 urlpatterns = [
@@ -27,6 +28,7 @@ urlpatterns = [
     path('login', auth, name='login'),
     path('register', register, name='register'),
     path('profile', profile, name='profile'),
+    path('api/', include("chponskiy.api.urls")),
     path('favicon.ico', partial(static_serve, path='img/favicon.ico'), name='favicon'),
 ]
 

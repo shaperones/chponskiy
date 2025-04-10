@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block html_attrs %}data-bs-theme="light"{% endblock html_attrs %}
+{% block header %}{% endblock header %}
+{% block head_extra %}
+<style>
+body {
+    background-color: aqua;
+}
+</style>
+{% endblock head_extra %}
+{% block layout %}
+<div class="h-100 d-flex align-items-center py-4">
+<div class="form-game bg-white w-100 m-auto rounded">
+    <h1 id="question" class="text-center mb-5">Text</h1>
+    <div class="container text-center">
+        <div id="answers" class="row row-cols-2">
+            <div class="col"><button class="btn btn-lg btn-outline-dark w-100 mt-2">Answer</button></div>
+            <div class="col"><button class="btn btn-lg btn-outline-dark w-100 mt-2">Answer</button></div>
+            <div class="col"><button class="btn btn-lg btn-outline-dark w-100 mt-2">Answer</button></div>
+            <div class="col"><button class="btn btn-lg btn-outline-dark w-100 mt-2">Answer</button></div>
+            <div class="col"><button class="btn btn-lg btn-outline-dark w-100 mt-2">Answer</button></div>
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock layout %}
