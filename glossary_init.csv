@@ -1,0 +1,65 @@
+level;phrase_english;phrase_japanese;phrase_kana;phrase_chinese;phrase_pinyin
+1;mother;母;はは;妈妈;māma
+1;father;父;ちち;爸爸;bàba
+1;water;水;みず;水;shuǐ
+1;rice;ご飯;ごはん;米饭;mǐfàn
+1;1;一;いち;一;yī
+1;2;二;に;二;èr
+1;3;三;さん;三;sān
+1;4;四;し／よん;四;sì
+1;5;五;ご;五;wǔ
+1;6;六;ろく;六;liù
+1;7;七;しち／なな;七;qī
+1;8;八;はち;八;bā
+1;9;九;きゅう／く;九;jiǔ
+1;10;十;じゅう;十;shí
+1;100;百;ひゃく;百;bǎi
+1;1000;千;せん;千;qiān
+1;10000;万;まん;万;wàn
+1;100000;十万;じゅうまん;十万;shí wàn
+1;1000000;百万;ひゃくまん;百万;bǎi wàn
+1;10000000;千万;せんまん;千万;qiān wàn
+1;100000000;億;おく;亿;yì
+1;1000000000;十億;じゅうおく;十亿;shí yì
+1;zero;零／ゼロ;れい／ゼロ;零;líng
+1;half;半;はん;半;bàn
+1;teacher;先生;せんせい;老师;lǎoshī
+1;student;学生;がくせい;学生;xuéshēng
+1;book;本;ほん;书;shū
+1;cat;猫;ねこ;猫;māo
+2;time;時間;じかん;时间;shíjiān
+2;hour;時;じ;点;diǎn
+2;day;日;にち;天;tiān
+2;month;月;げつ;月;yuè
+2;year;年;ねん;年;nián
+2;money;お金;おかね;钱;qián
+2;school;学校;がっこう;学校;xuéxiào
+2;work;仕事;しごと;工作;gōngzuò
+2;friend;友達;ともだち;朋友;péngyou
+2;home;家;いえ;家;jiā
+2;food;食べ物;たべもの;食物;shíwù
+2;drink;飲み物;のみもの;饮料;yǐnliào
+3;to eat;食べる;たべる;吃;chī
+3;to drink;飲む;のむ;喝;hē
+3;to go;行く;いく;去;qù
+3;to come;来る;くる;来;lái
+3;big;大きい;おおきい;大;dà
+3;small;小さい;ちいさい;小;xiǎo
+3;good;いい;いい;好;hǎo
+3;bad;悪い;わるい;坏;huài
+3;hot;熱い;あつい;热;rè
+3;cold;冷たい;つめたい;冷;lěng
+3;new;新しい;あたらしい;新;xīn
+3;old;古い;ふるい;旧;jiù
+4;computer;コンピューター;こんぴゅーたー;电脑;diànnǎo
+4;phone;電話;でんわ;手机;shǒujī
+4;internet;インターネット;いんたーねっと;网络;wǎngluò
+4;program;プログラム;ぷろぐらむ;程序;chéngxù
+4;to search;検索する;けんさくする;搜索;sōusuǒ
+4;data;データ;でーた;数据;shùjù
+4;password;パスワード;ぱすわーど;密码;mìmǎ
+4;email;メール;めーる;电子邮件;diànzǐ yóujiàn
+4;video;動画;どうが;视频;shìpín
+4;photo;写真;しゃしん;照片;zhàopiàn
+4;download;ダウンロード;だうんろーど;下载;xiàzǎi
+4;upload;アップロード;あっぷろーど;上传;shàngchuán
