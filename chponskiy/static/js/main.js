@@ -1,8 +1,8 @@
 'use strict'
 
 const my_red = '#ff808d';
-const my_yellow = '#ff808d';
-const my_green = '#ffdf80';
+const my_yellow = '#ffdf80';
+const my_green = '#80ffc3';
 const my_blue = '#80eaff';
 
 const difToColor = new Map();
