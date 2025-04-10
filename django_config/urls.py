@@ -29,3 +29,7 @@ urlpatterns = [
     path('profile', profile, name='profile'),
     path('favicon.ico', partial(static_serve, path='img/favicon.ico'), name='favicon'),
 ]
+
+if DEBUG:
+    from debug_toolbar.toolbar import debug_toolbar_urls
+    urlpatterns.extend(debug_toolbar_urls())
