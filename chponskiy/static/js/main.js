@@ -81,7 +81,7 @@ window.onload = (_) => {
     const enterGameButtonAnim = (mouseEvent) => {
         if (gameStartTimeout !== 0) return;
 
-        audioEnter.play();
+        audioEnter.play().then();
         const elem = mouseEvent.target;
         elem.focus();   // force highlighted state
         const circle = document.createElement('div');
