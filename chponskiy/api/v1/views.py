@@ -38,18 +38,21 @@ def question(request, slug):
     slug = slug.lower()
     match slug:
         case 'practice':
-            items = [GlossaryItem.get_random() for _ in range(2)]
-            column_question, column_choices = sample(
-                ('phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin'), 2)
+            items = GlossaryItem.get_randoms(4)
+            column_question, column_choices = choice((
+                ('phrase_english', 'phrase_japanese'),
+                ('phrase_english', 'phrase_chinese'),
+            ))
         case 'easy':
-            items = [GlossaryItem.get_random() for _ in range(3)]
+            items = GlossaryItem.get_randoms(4)
             column_question, column_choices = choice((
                 ('phrase_english', 'phrase_japanese'),
                 ('phrase_english', 'phrase_chinese'),
                 ('phrase_japanese', 'phrase_english'),
-                ('phrase_chinese', 'phrase_english')))
+                ('phrase_chinese', 'phrase_english'),
+            ))
         case 'medium':
-            items = [GlossaryItem.get_random() for _ in range(4)]
+            items = GlossaryItem.get_randoms(6)
             column_question, column_choices = choice((
                 ('phrase_english', 'phrase_japanese'),
                 ('phrase_english', 'phrase_chinese'),
@@ -61,7 +64,7 @@ def question(request, slug):
                 ('phrase_pinyin', 'phrase_english'),
             ))
         case 'nightmare':
-            items = [GlossaryItem.get_random() for _ in range(6)]
+            items = GlossaryItem.get_randoms(8)
             column_question, column_choices = sample(
                 ('phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin'), 2)
         case _:
