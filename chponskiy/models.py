@@ -78,5 +78,10 @@ class LeaderboardRecord(models.Model):
                      .order_by('-score')[:10]),
         }
 
+    @classmethod
+    def get_users_recent(cls, user: User) -> list['LeaderboardRecord']:
+        """Returns 10 most recent user played games"""
+        return list(LeaderboardRecord.objects.filter(user=user).order_by('-id')[:10])
+
     class Meta:
         db_table = 'leaderboard'

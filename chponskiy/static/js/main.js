@@ -203,7 +203,8 @@ window.onload = (_) => {
             window.location.pathname === '/' ||
             window.location.pathname === '/leaderboard' ||
             window.location.pathname === '/login' ||
-            window.location.pathname === '/register'
+            window.location.pathname === '/register' ||
+            window.location.pathname === '/profile'
     )) {
         fetchShaders().then(() => {
             loadCanvas().then(_ => console.log("canvased"));

@@ -69,4 +69,5 @@ def leaderboard(request):
 @login_required(login_url="login")
 def profile(request):
     """Renders user profile page"""
-    return render(request, 'profile.html')
+    return render(request, 'profile.html',
+                  {'records': LeaderboardRecord.get_users_recent(request.user)})

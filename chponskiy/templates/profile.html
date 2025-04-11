@@ -1,2 +1,25 @@
 {% extends 'base.html' %}
 
+{% block layout %}
+<div class="h-100 d-flex align-items-center py-4">
+<div class="form-profile w-100 m-auto border border-dark-subtle rounded">
+    <h1 class="text-center">{{ user.username }}'s recently played games:</h1>
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col" class="text-center">Difficulty</th>
+        <th scope="col" class="text-center">Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in records %}
+    <tr>
+        <td class="text-center">{{ record.difficulty }}</td>
+        <td class="text-center">{{ record.score }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

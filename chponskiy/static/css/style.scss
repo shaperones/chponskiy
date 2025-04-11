@@ -154,6 +154,13 @@ $btn-color: (
     backdrop-filter: blur(2px) brightness(200%);
 }
 
+.form-profile {
+    max-width: 900px !important;
+    padding: 1rem;
+    background: #22222288;
+    backdrop-filter: blur(2px) brightness(200%);
+}
+
 .form-game {
     max-width: 500px !important;
     padding: 1rem;
