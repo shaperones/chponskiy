@@ -179,7 +179,7 @@ function gameEnd() {
 
 let gameStartTimeout = 0;
 window.onload = (_) => {
-    if (typeof PIXI !== 'undefined' && window.location.pathname === '/') {
+    if (typeof PIXI !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === '/leaderboard')) {
         fetchShaders().then(() => {
             loadCanvas().then(_ => console.log("canvased"));
         });
