@@ -1,3 +1,8 @@
+"""Configures admin interfaces for project models"""
+
+import csv
+from io import StringIO
+
 from django.contrib import admin
 from django.http import HttpRequest
 from django.urls import path
@@ -5,10 +10,9 @@ from django.shortcuts import redirect, render
 from django import forms
 from pydantic import BaseModel
 from chponskiy.models import GlossaryItem, LeaderboardRecord
-import csv
-from io import StringIO
 
 class GlossaryItemCSVRecord(BaseModel):
+    """Pydantic model for validating CSV records imported from admin panel"""
     level: int
     phrase_english: str
     phrase_japanese: str
@@ -19,16 +23,27 @@ class GlossaryItemCSVRecord(BaseModel):
 
 @admin.register(GlossaryItem)
 class GlossaryItemAdmin(admin.ModelAdmin):
+    """Admin interface for GlossaryItem, provides methods for loading glossary from CSV file"""
     search_fields = (
-        'phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin'
+        'phrase_english',
+        'phrase_japanese',
+        'phrase_kana',
+        'phrase_chinese',
+        'phrase_pinyin'
     )
     list_display = (
-        'level', 'phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin'
+        'level',
+        'phrase_english',
+        'phrase_japanese',
+        'phrase_kana',
+        'phrase_chinese',
+        'phrase_pinyin'
     )
 
     change_list_template = "admin_changelist.html"
 
     def get_urls(self):
+        """Returns additional urls for this admin model - import csv in our case"""
         urls = super().get_urls()
         my_urls = [
             path('import-csv/', self.import_csv),
@@ -36,6 +51,7 @@ class GlossaryItemAdmin(admin.ModelAdmin):
         return my_urls + urls
 
     def import_csv(self, request: HttpRequest):
+        """Handle import CSV request from admin panel"""
         if request.method == "POST":
             csv_content = request.FILES["csv_file"].read().decode("utf-8")
             reader = csv.DictReader(
@@ -68,8 +84,10 @@ class GlossaryItemAdmin(admin.ModelAdmin):
 
 @admin.register(LeaderboardRecord)
 class LeaderboardRecordAdmin(admin.ModelAdmin):
+    """Admin interface for LeaderboardRecord model"""
     search_fields = ('user__username', 'score', 'difficulty')
     list_display = ('user', 'score', 'difficulty')
 
 class CsvImportForm(forms.Form):
+    """Django form for importing CSV file"""
     csv_file = forms.FileField()
