@@ -61,6 +61,7 @@
 
     </script>
     <script type="module" src="{% static 'js/main.js' %}"></script>
+    {% csrf_token %}
 </head>
 <body class="{% block body_classes %}{% endblock %}">
     <script>const _ = 0; //empty script to prevent the FUC (Flash of Unstyled Content)</script>

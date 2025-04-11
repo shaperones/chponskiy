@@ -1,5 +1,7 @@
 'use strict'
 
+const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
 const my_red = '#ff808d';
 const my_yellow = '#ffdf80';
 const my_green = '#80ffc3';
@@ -174,12 +176,35 @@ function gameEnd() {
     gameScore = Math.floor(gameScore)
     questionElem.textContent = `Score: ${gameScore}`;
     answersElem.textContent = 'Press F5 to try again!';
-    // score
+
+    //send the score
+    const request = new Request(
+        'api/v1/upload_score',
+        {
+            method: 'POST',
+            headers: {'X-CSRFToken': csrfToken},
+            mode: 'same-origin',
+            body: JSON.stringify({
+                "score": gameScore,
+                "difficulty": gameDifficulty
+            })
+        },
+    );
+    fetch(request).then((response) => {
+        if (response.status !== 200) {
+            console.log("faile");
+        }
+    });
 }
 
 let gameStartTimeout = 0;
 window.onload = (_) => {
-    if (typeof PIXI !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === '/leaderboard')) {
+    if (typeof PIXI !== 'undefined' && (
+            window.location.pathname === '/' ||
+            window.location.pathname === '/leaderboard' ||
+            window.location.pathname === '/login' ||
+            window.location.pathname === '/register'
+    )) {
         fetchShaders().then(() => {
             loadCanvas().then(_ => console.log("canvased"));
         });

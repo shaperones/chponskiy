@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from collections.abc import Sequence
 from secrets import randbelow
 from random import sample, choice
 
-from chponskiy.models import GlossaryItem
+from chponskiy.models import GlossaryItem, LeaderboardRecord
 
 class Question(BaseModel):
     question_text: str
@@ -74,3 +74,34 @@ def question(request, slug):
 
     question_model = Question.from_glossary_items(items, column_question, column_choices)
     return JsonResponse(question_model.model_dump())
+
+
+class ScoreUpload(BaseModel):
+    score: int
+    difficulty: str
+
+
+def upload_score(request):
+    response = HttpResponse()
+    if request.method != "POST":
+        response.status_code = 405
+        return response
+
+    if not request.user.is_authenticated:
+        response.status_code = 403
+        return response
+
+    try:
+        record = ScoreUpload.model_validate_json(request.body)
+    except ValidationError:
+        response.status_code = 400
+        return response
+
+    new_record = LeaderboardRecord()
+    new_record.score = record.score
+    new_record.user = request.user
+    new_record.difficulty = record.difficulty
+    new_record.save()
+
+    response.status_code = 200
+    return response
