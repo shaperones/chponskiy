@@ -20,13 +20,14 @@ from django.contrib.staticfiles.views import serve as static_serve
 from functools import partial
 
 from django_config.settings import DEBUG
-from chponskiy.views import index, auth, register, profile
+from chponskiy.views import index, auth, register, profile, leaderboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('login', auth, name='login'),
     path('register', register, name='register'),
+    path('leaderboard', leaderboard, name='leaderboard'),
     path('profile', profile, name='profile'),
     path('api/', include("chponskiy.api.urls")),
     path('favicon.ico', partial(static_serve, path='img/favicon.ico'), name='favicon'),

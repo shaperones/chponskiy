@@ -71,11 +71,18 @@
             {% block header %}
             <nav id="header">
                 <div class="container fixed-top">
-                    <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
-                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="/">
+                    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start py-3 mb-4">
+                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+                           href="/">
                             <img alt="🈺" src="{% static 'img/favicon_flat.svg' %}">
                             <span class="fs-4" style="font-family: Arial, sans-serif; font-style: italic">Chponskiy!</span>
                         </a>
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+                            style="margin-right: 2rem !important">
+                            <li>
+                                <a class="nav-link px-2 link-body-emphasis text-decoration-none" href="{% url 'leaderboard' %}">Leaderboard</a>
+                            </li>
+                        </ul>
                         {% if user.is_authenticated %}
                         <a class="link-body-emphasis text-decoration-none" href="{% url 'profile' %}">{{ user.username }}</a>
                         {% else %}
