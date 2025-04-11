@@ -15,6 +15,9 @@ from pydantic_settings import BaseSettings
 
 
 class ChponskiySettings(BaseSettings):
+    """Base settings class, which pulls following settings from environment
+    variables and validates them. See dev.env file at project root.
+    """
     project_name: str
     project_description: str
 
