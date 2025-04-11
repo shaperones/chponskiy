@@ -25,6 +25,25 @@ class GlossaryItem(models.Model):
             max_tries -= 1
         raise ValueError("Failed to find existing object")
 
+    @classmethod
+    def get_randoms(cls, num: int) -> list['GlossaryItem']:
+        max_id = cls.objects.all().aggregate(max_id=Max("id"))['max_id']
+        glossary_items: list[GlossaryItem] = []
+        ids: set[int] = set()
+        for _ in range(num):
+            max_tries = 32
+            while max_tries:
+                pk = randbelow(max_id) + 1
+                if pk not in ids:
+                    glossary_item = GlossaryItem.objects.get(pk=pk)
+                    if glossary_item:
+                        glossary_items.append(glossary_item)
+                        break
+                max_tries -= 1
+            else:
+                raise ValueError("Failed to collect enough distinct items")
+        return glossary_items
+
     class Meta:
         db_table = 'glossary'
 
