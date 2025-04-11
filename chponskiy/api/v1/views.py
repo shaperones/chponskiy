@@ -84,10 +84,7 @@ def question(request, slug):
             items = GlossaryItem.get_randoms(8)
             column_question, column_choices = sample(
                 (
-                    'phrase_english',
-                    'phrase_japanese',
-                    'phrase_kana',
-                    'phrase_chinese',
+                    'phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese',
                     'phrase_pinyin'
                 ), 2)
         case _:
