@@ -216,7 +216,7 @@ window.onload = (_) => {
                 window.setTimeout(gameEnd, difToLength.get(gameDifficulty));
             });
 
-        }, 2000);
+        }, 500);
     }
 
     let btn;
