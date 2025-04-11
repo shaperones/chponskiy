@@ -118,7 +118,7 @@ function nextQuestion() {
         })
 }
 
-const audioFails = [audioFail1, audioFail2, audioFail3, audioFail4, audioFail5, audioFail6, audioFail7, audioFail8, audioFail9, audioFail10, audioFail11, audioFail12, audioFail13,]
+const audioFails = [audioFail1, audioFail2, audioFail3, audioFail4, audioFail5, audioFail6, audioFail7, audioFail8, audioFail9, audioFail10, audioFail11, audioFail12, audioFail13, audioFail14,]
 function answerButtonPress(me) {
     if (me.target.textContent === currentQuestionAnswer) {
         audioSuccess1.play().then();
