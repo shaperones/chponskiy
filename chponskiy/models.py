@@ -14,13 +14,16 @@ class GlossaryItem(models.Model):
     phrase_pinyin = models.TextField()
 
     @classmethod
-    def get_random(cls):
+    def get_random(cls) -> 'GlossaryItem':
         max_id = cls.objects.all().aggregate(max_id=Max("id"))['max_id']
-        while True:
+        max_tries = 32
+        while max_tries:
             pk = randbelow(max_id) + 1
             glossary_item = GlossaryItem.objects.get(pk=pk)
             if glossary_item:
                 return glossary_item
+            max_tries -= 1
+        raise ValueError("Failed to find existing object")
 
     class Meta:
         db_table = 'glossary'
