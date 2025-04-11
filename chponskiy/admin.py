@@ -19,8 +19,12 @@ class GlossaryItemCSVRecord(BaseModel):
 
 @admin.register(GlossaryItem)
 class GlossaryItemAdmin(admin.ModelAdmin):
-    search_fields = ('phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin')
-    list_display = ('level', 'phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin')
+    search_fields = (
+        'phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin'
+    )
+    list_display = (
+        'level', 'phrase_english', 'phrase_japanese', 'phrase_kana', 'phrase_chinese', 'phrase_pinyin'
+    )
 
     change_list_template = "admin_changelist.html"
 
@@ -34,7 +38,13 @@ class GlossaryItemAdmin(admin.ModelAdmin):
     def import_csv(self, request: HttpRequest):
         if request.method == "POST":
             csv_content = request.FILES["csv_file"].read().decode("utf-8")
-            reader = csv.DictReader(StringIO(csv_content), delimiter=';', lineterminator='\n', skipinitialspace=True, strict=True)
+            reader = csv.DictReader(
+                StringIO(csv_content),
+                delimiter=';',
+                lineterminator='\n',
+                skipinitialspace=True,
+                strict=True
+            )
             records = [GlossaryItemCSVRecord.model_validate(row) for row in reader]
 
             for record in records:
