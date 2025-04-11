@@ -118,7 +118,24 @@ function nextQuestion() {
         })
 }
 
+function shuffle(array) {
+    let currentIndex = array.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+}
+
 const audioFails = [audioFail1, audioFail2, audioFail3, audioFail4, audioFail5, audioFail6, audioFail7, audioFail8, audioFail9, audioFail10, audioFail11, audioFail12, audioFail13, audioFail14,]
+let audioFailIdx = 0;
 function answerButtonPress(me) {
     if (me.target.textContent === currentQuestionAnswer) {
         audioSuccess1.play().then();
@@ -133,7 +150,11 @@ function answerButtonPress(me) {
         nextQuestion();
     }
     else {
-        const audioFail = audioFails[Math.floor(Math.random() * audioFails.length)];
+        if (audioFailIdx === 0) {
+            shuffle(audioFails);
+        }
+        const audioFail = audioFails[audioFailIdx];
+        audioFailIdx = (audioFailIdx + 1) % audioFails.length;
         audioFail.play().then();
         fails++;
         me.target.setAttribute('disabled', '');
