@@ -3,6 +3,8 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from chponskiy.models import LeaderboardRecord
+
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -52,7 +54,8 @@ def register(request):
 
 
 def leaderboard(request):
-    pass
+    records_top10 = LeaderboardRecord.get_top10()
+    return render(request, 'leaderboard.html', {'records': records_top10})
 
 
 @login_required(login_url="login")

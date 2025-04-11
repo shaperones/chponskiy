@@ -147,6 +147,13 @@ $btn-color: (
     backdrop-filter: blur(2px) brightness(200%);
 }
 
+.form-leaderboard {
+    max-width: 700px !important;
+    padding: 1rem;
+    background: #22222288;
+    backdrop-filter: blur(2px) brightness(200%);
+}
+
 .form-game {
     max-width: 500px !important;
     padding: 1rem;
@@ -193,4 +200,25 @@ canvas {
     100% {
         transform: scale(10000);
     }
+}
+
+// --- tables ---
+.table-container {
+    border-left: #888888 1px solid;
+    border-right: #888888 1px solid;
+}
+
+.table {
+    margin-bottom: 0 !important;
+}
+
+th, td {
+    background: transparent !important;
+}
+
+// --- nav tabs ---
+.nav-link.active {
+    background: transparent !important;
+    border-bottom-width: 0;
+    margin-bottom: -1px;
 }

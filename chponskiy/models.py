@@ -54,5 +54,13 @@ class LeaderboardRecord(models.Model):
     difficulty = models.TextField()
     score = models.IntegerField()
 
+    @classmethod
+    def get_top10(cls) -> dict[str, list['LeaderboardRecord']]:
+        return {
+            'easy': list(LeaderboardRecord.objects.filter(difficulty='easy').order_by('-score')[:10]),
+            'medium': list(LeaderboardRecord.objects.filter(difficulty='medium').order_by('-score')[:10]),
+            'nightmare': list(LeaderboardRecord.objects.filter(difficulty='nightmare').order_by('-score')[:10]),
+        }
+
     class Meta:
         db_table = 'leaderboard'
