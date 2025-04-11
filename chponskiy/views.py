@@ -32,9 +32,9 @@ def auth(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            login(request, form.save())
             return redirect("index")
     else:
         form = UserCreationForm()
@@ -50,7 +50,7 @@ def register(request):
                     field.label = "Confirm Password"
                     field.placeholder = "*****"
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 
 def leaderboard(request):
