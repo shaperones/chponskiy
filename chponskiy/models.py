@@ -1,10 +1,14 @@
-from django.contrib.auth.models import User
+"""Configures models used in the app - glossary items and leaderboard records"""
+
+from secrets import randbelow
+from django.contrib.auth.models import User     # pylint: disable=E5142
 from django.db import models
 from django.db.models import Max
-from secrets import randbelow
 
-# Create your models here.
 class GlossaryItem(models.Model):
+    """Glossary item model - provides fields for phrase
+    translations in different languages and difficulty level."""
+
     id = models.AutoField(primary_key=True)
     level = models.IntegerField()
     phrase_english = models.TextField()
@@ -15,6 +19,7 @@ class GlossaryItem(models.Model):
 
     @classmethod
     def get_random(cls) -> 'GlossaryItem':
+        """Returns a random glossary item."""
         max_id = cls.objects.all().aggregate(max_id=Max("id"))['max_id']
         max_tries = 32
         while max_tries:
@@ -27,6 +32,7 @@ class GlossaryItem(models.Model):
 
     @classmethod
     def get_randoms(cls, num: int) -> list['GlossaryItem']:
+        """Returns specified number of distinct glossary items."""
         max_id = cls.objects.all().aggregate(max_id=Max("id"))['max_id']
         glossary_items: list[GlossaryItem] = []
         ids: set[int] = set()
@@ -49,6 +55,9 @@ class GlossaryItem(models.Model):
 
 
 class LeaderboardRecord(models.Model):
+    """Leaderboard record model - provides fields for the record holder username,
+    difficulty played and the actual score.
+    """
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     difficulty = models.TextField()
@@ -56,10 +65,17 @@ class LeaderboardRecord(models.Model):
 
     @classmethod
     def get_top10(cls) -> dict[str, list['LeaderboardRecord']]:
+        """Returns 10 highest records in every category."""
         return {
-            'easy': list(LeaderboardRecord.objects.filter(difficulty='easy').order_by('-score')[:10]),
-            'medium': list(LeaderboardRecord.objects.filter(difficulty='medium').order_by('-score')[:10]),
-            'nightmare': list(LeaderboardRecord.objects.filter(difficulty='nightmare').order_by('-score')[:10]),
+            'easy':
+                list(LeaderboardRecord.objects.filter(difficulty='easy')
+                     .order_by('-score')[:10]),
+            'medium':
+                list(LeaderboardRecord.objects.filter(difficulty='medium')
+                     .order_by('-score')[:10]),
+            'nightmare':
+                list(LeaderboardRecord.objects.filter(difficulty='nightmare')
+                     .order_by('-score')[:10]),
         }
 
     class Meta:
