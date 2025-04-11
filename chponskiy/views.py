@@ -1,3 +1,5 @@
+"""Configures views in the app. See each function docstring for more info on each view."""
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -5,12 +7,15 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from chponskiy.models import LeaderboardRecord
 
-# Create your views here.
 def index(request):
+    """Renders index page. Since this page is practically
+    static initially, no need for any special parameters"""
     return render(request, 'index.html')
 
 
 def auth(request):
+    """Renders login page and handles login form. Implemented
+    mostly with Django's internal auth mechanisms"""
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -31,6 +36,8 @@ def auth(request):
 
 
 def register(request):
+    """Renders register page and handles register form. Implemented
+    mostly with Django's internal auth mechanisms"""
     if request.method == 'POST':
         form = UserCreationForm(data=request.POST)
         if form.is_valid():
@@ -54,10 +61,12 @@ def register(request):
 
 
 def leaderboard(request):
+    """Renders leaderboard page. Gets top 10 records for each difficulty to form a table"""
     records_top10 = LeaderboardRecord.get_top10()
     return render(request, 'leaderboard.html', {'records': records_top10})
 
 
 @login_required(login_url="login")
 def profile(request):
+    """Renders user profile page"""
     return render(request, 'profile.html')
