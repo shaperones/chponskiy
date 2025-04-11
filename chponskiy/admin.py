@@ -59,6 +59,7 @@ class GlossaryItemAdmin(admin.ModelAdmin):
 @admin.register(LeaderboardRecord)
 class LeaderboardRecordAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'score', 'difficulty')
+    list_display = ('user', 'score', 'difficulty')
 
 class CsvImportForm(forms.Form):
     csv_file = forms.FileField()
