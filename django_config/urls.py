@@ -19,8 +19,9 @@ from functools import partial
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.views import serve as static_serve
+from django.conf.urls.static import static
 
-from django_config.settings import DEBUG
+from django_config.settings import DEBUG, STATIC_URL, STATIC_ROOT
 from chponskiy.views import index, auth, register, profile, leaderboard
 
 urlpatterns = [
@@ -37,3 +38,4 @@ urlpatterns = [
 if DEBUG:
     from debug_toolbar.toolbar import debug_toolbar_urls
     urlpatterns.extend(debug_toolbar_urls())
+    urlpatterns.extend(static(STATIC_URL, document_root=STATIC_ROOT))
