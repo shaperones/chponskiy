@@ -44,6 +44,7 @@ class GlossaryItem(models.Model):
                     glossary_item = GlossaryItem.objects.get(pk=pk)
                     if glossary_item:
                         glossary_items.append(glossary_item)
+                        ids.add(glossary_item.id)
                         break
                 max_tries -= 1
             else:
