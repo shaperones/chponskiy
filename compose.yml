@@ -1,0 +1,14 @@
+services:
+  backend:
+    container_name: chponskiy-backend
+    build: .
+    restart: unless-stopped
+    env_file: ./dev.env
+    ports:
+      - "80:8000"
+    volumes:
+      - static:/app/django_config/static
+      - ./db.sqlite3:/app/db.sqlite3
+
+volumes:
+  static:
